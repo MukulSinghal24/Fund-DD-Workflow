@@ -80,12 +80,22 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#F1F5F
 
 .lightbox-overlay{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.88);z-index:9999;justify-content:center;align-items:center;flex-direction:column}
 .lightbox-overlay.active{display:flex}
-.lightbox-header{display:flex;align-items:center;gap:12px;padding:16px 24px;width:100%}
-.lightbox-title{color:white;font-size:16px;font-weight:700;flex:1}
-.lightbox-close{background:rgba(255,255,255,.15);color:white;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:14px}
-.lightbox-close:hover{background:rgba(255,255,255,.3)}
-.lightbox-body{flex:1;display:flex;align-items:center;justify-content:center;width:100%;overflow:auto;padding:16px}
-.lightbox-body .mermaid{background:white;border-radius:12px;padding:32px;max-width:95vw}
+.lightbox-header{display:flex;align-items:center;gap:12px;padding:12px 24px;width:100%;justify-content:space-between;flex-shrink:0}
+.lightbox-title{color:white;font-size:16px;font-weight:700}
+.lightbox-controls{display:flex;gap:8px}
+.lightbox-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:white;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;transition:background .15s}
+.lightbox-btn:hover{background:rgba(255,255,255,.3)}
+.lightbox-close{background:#C62828;border-color:#EF5350}
+.lightbox-close:hover{background:#E53935}
+.lightbox-body{flex:1;overflow:auto;padding:16px 24px;width:100%;display:flex;justify-content:center;align-items:flex-start}
+.lightbox-content{transform-origin:center top;transition:transform .2s ease;width:95%;max-width:1400px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+.lightbox-content svg{height:auto!important}
+.lightbox-hint{color:rgba(255,255,255,.5);font-size:11px;padding:8px 24px;text-align:center;flex-shrink:0}
+
+.zoom-btn{position:absolute;top:10px;right:10px;z-index:50;background:#1A237E;color:white;border:none;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3);transition:background .15s,transform .15s;display:flex;align-items:center;gap:5px}
+.zoom-btn:hover{background:#283593;transform:scale(1.05)}
+.zoom-btn svg{width:14px;height:14px;fill:white}
+.mermaid-wrap .mermaid-chart{overflow-x:auto;overflow-y:hidden;padding-bottom:8px}
 
 @media(max-width:768px){.stats-row{flex-direction:column;align-items:flex-start}.phase-body{padding:0 12px 16px}.step-table{font-size:11px}.donut-section{flex-direction:column}}
 </style>
@@ -144,8 +154,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#F1F5F
 <h2>End-to-End Gate Process: Pre-Screen → IC Approval</h2>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'End-to-End Gate Process')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart LR
     subgraph G0["GATE 0: Pre-Screen"]
@@ -194,8 +203,7 @@ flowchart LR
 <h2>Manager Scorecard Framework — 6 Categories, 35 Criteria</h2>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Manager Scorecard Framework')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     SC(["MANAGER SCORECARD<br>35 Criteria • Traffic Light Ratings"]) --> S1
@@ -287,8 +295,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 1: Pre-Screen & Initial Sourcing')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1([" GP / Placement Agent <br> Outreach Received "]) --> B1["Review Fund Teaser <br> & One-Pager"]
@@ -387,8 +394,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 2: Screen & Quantitative Assessment')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1(["Pre-Screen Approved"]) --> B1["Request & Process <br> ILPA DDQ"]
@@ -497,8 +503,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 3: Strategy & Investment Process DD')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1(["DD Approved"]) --> B1["Analyze Investment <br> Strategy Memo"]
@@ -610,8 +615,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 4: Track Record & Performance Deep Dive')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1["Build Realized Deal <br> Schedule (Entry/Exit)"] --> A2["Unrealized Portfolio <br> Valuation Analysis"]
@@ -699,8 +703,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 5: Team & Organization Assessment')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1["Review Team Bios <br> & Org Chart"] --> A2["Map Board / IC <br> Composition"]
@@ -789,8 +792,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 6: Fund Terms & Economics Review')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1["Review Draft <br> LPA"] --> A2["Analyze Fee & <br> Expense Schedule"]
@@ -878,8 +880,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 7: Operational Due Diligence')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1["Review ODD Report <br> (internal/3rd party)"] --> B1["Assess Fund <br> Administrator"]
@@ -980,8 +981,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 8: Legal & Tax Due Diligence')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1["LPA Redline vs. <br> Market Standard"] --> A2["Side Letter <br> Precedent Analysis"]
@@ -1057,8 +1057,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 9: ESG & Responsible Investment DD')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1["Review ESG / RI <br> Policy"] --> A2["Assess UNPRI <br> Transparency Report"]
@@ -1135,8 +1134,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 10: Portfolio Construction & Fit Analysis')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1["LP Portfolio <br> Exposure Analysis"] --> A2["Pacing Model & <br> Commitment Schedule"]
@@ -1212,8 +1210,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 11: Reference Checks & Scorecard Assembly')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1["LP Reference Calls <br> (3-5 existing LPs)"] --> A2["Portfolio Company <br> CEO References"]
@@ -1307,8 +1304,7 @@ flowchart TD
 </div>
 </div>
 <div class="phase-body">
-<div class="mermaid-wrap" onclick="openLightbox(this,'Phase 12: Final Recommendation & IC Materials')">
-<div class="zoom-hint">🔍 Click to expand</div>
+<div class="mermaid-wrap">
 <pre class="mermaid">
 flowchart TD
     A1["Draft Final <br> Recommendation Analysis"] --> A2["Draft Commitment <br> Terms & Conditions"]
@@ -1384,39 +1380,162 @@ Generated for LLM-assisted memo production • Institutional PE Fund Commitment 
 <!-- Lightbox -->
 <div class="lightbox-overlay" id="lightbox">
 <div class="lightbox-header">
-<div class="lightbox-title" id="lightbox-title"></div>
-<button class="lightbox-close" onclick="closeLightbox()">✕ Close</button>
+<span class="lightbox-title" id="lightbox-title"></span>
+<div class="lightbox-controls">
+<button class="lightbox-btn" onclick="lbZoom(-1)">&#x2212; Zoom Out</button>
+<button class="lightbox-btn" id="lb-zoom-level">100%</button>
+<button class="lightbox-btn" onclick="lbZoom(1)">&#x2b; Zoom In</button>
+<button class="lightbox-btn" onclick="lbReset()">Reset</button>
+<button class="lightbox-btn lightbox-close" onclick="lbClose()">&#x2715; Close</button>
 </div>
-<div class="lightbox-body">
-<div class="mermaid" id="lightbox-diagram"></div>
 </div>
+<div class="lightbox-body" id="lightbox-body">
+<div class="lightbox-content" id="lightbox-content"></div>
+</div>
+<div class="lightbox-hint">Scroll to pan &middot; Use buttons or mouse wheel to zoom &middot; Press Escape to close</div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.1/mermaid.min.js"></script>
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.esm.min.mjs';
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  securityLevel: 'loose',
+  themeVariables: {
+    fontFamily: 'Segoe UI, system-ui, sans-serif',
+    fontSize: '12px',
+    primaryColor: '#E8F5E9',
+    primaryBorderColor: '#4CAF50',
+    lineColor: '#90A4AE'
+  },
+  flowchart: {
+    htmlLabels: true,
+    curve: 'basis',
+    padding: 12,
+    nodeSpacing: 25,
+    rankSpacing: 35,
+    useMaxWidth: true
+  }
+});
+</script>
 <script>
-mermaid.initialize({startOnLoad:true,theme:'default',flowchart:{useMaxWidth:true,htmlLabels:true,curve:'basis'},securityLevel:'loose'});
+var lbScales = [0.5, 0.6, 0.75, 0.85, 1, 1.15, 1.3, 1.5, 1.75, 2, 2.5, 3];
+var lbIdx = 4;
 
-function openLightbox(wrap, title) {
-    const code = wrap.querySelector('.mermaid').textContent;
-    const overlay = document.getElementById('lightbox');
-    const diagram = document.getElementById('lightbox-diagram');
-    document.getElementById('lightbox-title').textContent = title;
-    diagram.removeAttribute('data-processed');
-    diagram.textContent = code;
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    mermaid.run({nodes:[diagram]});
+function lbOpen(wrap) {
+  var svg = wrap.querySelector('svg');
+  if (!svg) return;
+  var card = wrap.closest('.phase-card');
+  var title = 'Flowchart';
+  if (card) {
+    var h2 = card.querySelector('h2');
+    if (h2) title = h2.textContent;
+  }
+  document.getElementById('lightbox-title').textContent = title;
+  var clone = svg.cloneNode(true);
+  var vb = svg.getAttribute('viewBox');
+  var rect = svg.getBoundingClientRect();
+  clone.removeAttribute('width');
+  clone.removeAttribute('height');
+  clone.removeAttribute('style');
+  clone.removeAttribute('class');
+  if (!vb && rect.width > 0) {
+    clone.setAttribute('viewBox', '0 0 ' + Math.round(rect.width) + ' ' + Math.round(rect.height));
+  }
+  var svgW = rect.width || 800;
+  var svgH = rect.height || 600;
+  if (vb) {
+    var parts = vb.split(/[\s,]+/);
+    if (parts.length === 4) { svgW = parseFloat(parts[2]); svgH = parseFloat(parts[3]); }
+  }
+  var ratio = svgH / svgW;
+  if (ratio > 1.2) {
+    var maxW = Math.min(600, window.innerWidth * 0.5);
+    clone.style.width = maxW + 'px';
+    clone.style.maxWidth = maxW + 'px';
+    clone.style.height = 'auto';
+    clone.style.margin = '0 auto';
+  } else {
+    clone.style.width = '100%';
+    clone.style.height = 'auto';
+    clone.style.maxWidth = 'none';
+  }
+  clone.style.display = 'block';
+  clone.style.background = 'white';
+  clone.style.borderRadius = '12px';
+  clone.style.padding = '24px';
+  var content = document.getElementById('lightbox-content');
+  content.innerHTML = '';
+  content.appendChild(clone);
+  lbIdx = 4;
+  lbApply();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  if (ratio > 1.2) {
+    document.getElementById('lightbox-body').scrollTop = 0;
+  }
 }
-function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
-    document.body.style.overflow = '';
+
+function lbClose() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
 }
-document.getElementById('lightbox').addEventListener('click', function(e) {
-    if (e.target === this) closeLightbox();
-});
+
+function lbZoom(dir) {
+  lbIdx = Math.max(0, Math.min(lbScales.length - 1, lbIdx + dir));
+  lbApply();
+}
+
+function lbReset() {
+  lbIdx = 4;
+  lbApply();
+}
+
+function lbApply() {
+  var s = lbScales[lbIdx];
+  document.getElementById('lightbox-content').style.transform = 'scale(' + s + ')';
+  document.getElementById('lb-zoom-level').textContent = Math.round(s * 100) + '%';
+}
+
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'Escape') lbClose();
 });
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this || e.target === document.getElementById('lightbox-body')) lbClose();
+});
+
+document.getElementById('lightbox-body').addEventListener('wheel', function(e) {
+  if (document.getElementById('lightbox').classList.contains('active')) {
+    e.preventDefault();
+    lbZoom(e.deltaY < 0 ? 1 : -1);
+  }
+}, {passive: false});
+
+// Attach zoom buttons to all mermaid wraps after render
+setTimeout(function() {
+  document.querySelectorAll('.mermaid-wrap').forEach(function(wrap) {
+    var svg = wrap.querySelector('svg');
+    if (!svg) return;
+    if (wrap.dataset.lbReady) return;
+    wrap.dataset.lbReady = '1';
+    var btn = document.createElement('button');
+    btn.className = 'zoom-btn';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg> Zoom';
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      lbOpen(wrap);
+    });
+    wrap.style.position = 'relative';
+    wrap.appendChild(btn);
+    wrap.style.cursor = 'pointer';
+    wrap.addEventListener('click', function(e) {
+      if (e.target.closest('.zoom-btn')) return;
+      if (e.target.closest('a')) return;
+      lbOpen(this);
+    });
+  });
+}, 2000);
 </script>
 </body>
 </html>
